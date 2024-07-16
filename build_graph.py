@@ -93,8 +93,10 @@ def main():
 
     process_collection(collection, nodes, links)
 
-    print(f"Graph constructed from collection: {COLLECTION_TO_PROCESS}")
-
+    # print(f"Graph constructed from collection: {COLLECTION_TO_PROCESS}")
+    collection = chroma_client.get_collection(COLLECTION_TO_PROCESS)
+    print(f"Collection name: {collection.name}")
+    print(f"Number of items: {collection.count()}")
     with open("graphData.json", "w") as f:
         json.dump({"nodes": [n.model_dump() for n in nodes],
                    "links": [l.model_dump() for l in links]}, f)
